@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TicTacToe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="main.js" defer></script>
+  </head>
+  <body class="flex flex-col min-h-screen bg-slate-600">
+    <!--   HEADER   -->
+    <header class="p-5 bg-slate-700 border-b-[1px] border-slate-500">
+      <h1 class="text-5xl font-semibold text-center text-gray-200">
+        TicTacToe
+      </h1>
+    </header>
+
+    <!--   MAIN   -->
+    <main class="flex flex-col items-center justify-center flex-grow">
+      <h2 class="mb-3 text-2xl font-semibold text-gray-200 status-text">
+        X's turn
+      </h2>
+      <div class="grid grid-cols-3 grid-rows-3 gap-3">
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+        <div
+          class="cell flex justify-center items-center text-gray-800 text-7xl border-[1px] border-gray-400 bg-slate-500 hover:bg-slate-600 transition duration-200 h-32 w-32 sm:h-36 sm:w-36 lg:h-40 lg:w-40 rounded-lg"
+        ></div>
+      </div>
+      <button
+        class="reset-btn mt-5 px-7 py-3 text-gray-100 text-3xl font-semibold border-[1px] rounded-xl border-gray-400 bg-pink-800 hover:bg-pink-900"
+      >
+        Restart
+      </button>
+    </main>
+
+    <!--   FOOTER    -->
+    <footer
+      class="text-center p-5 bg-slate-700 border-t-[1px] border-slate-500"
+    >
+      <p class="text-xl text-gray-200">
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        jntlmb
+      </p>
+    </footer>
+  </body>
+</html>
