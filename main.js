@@ -1,21 +1,24 @@
-const GameBoard = function () {
-  const board = ["", "", "", "", "", "", "", "", ""];
+class GameBoard {
+  constructor() {
+    this.board = ["", "", "", "", "", "", "", "", ""];
+  }
+}
 
-  return { board };
-};
+class Player {
+  constructor(playerName, symbol) {
+    this.playerName = playerName;
+    this.symbol = symbol;
+  }
+}
 
-const Player = function (playerName, symbol) {
-  return { playerName, symbol };
-};
+class GameController {
+  validateMove = (board, pos) => board[pos] === "";
 
-const GameController = function () {
-  const validateMove = (board, pos) => board[pos] === "";
-
-  const makeMove = (board, pos, player) => {
+  makeMove = (board, pos, player) => {
     board[pos] = player.symbol;
   };
 
-  const checkWin = (board, player) => {
+  checkWin = (board, player) => {
     const winConditions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -31,25 +34,21 @@ const GameController = function () {
       return condition.every((index) => board[index] === player.symbol);
     });
   };
+}
 
-  return { validateMove, makeMove, checkWin };
-};
+class DisplayController {
+  constructor() {
+    this.cells = document.querySelectorAll(".cell");
+  }
 
-const DisplayController = (function () {
-  const cells = document.querySelectorAll(".cell");
-
-  const renderBoard = (board) => {
-    cells.forEach((cell, index) => {
+  renderBoard = (board) => {
+    this.cells.forEach((cell, index) => {
       cell.textContent = board[index];
     });
   };
 
-  const setupBoardListeners = (
-    gameBoard,
-    gameController,
-    playerMoveCallback
-  ) => {
-    cells.forEach((cell, index) => {
+  setupBoardListeners = (gameBoard, gameController, playerMoveCallback) => {
+    this.cells.forEach((cell, index) => {
       cell.addEventListener("click", () => {
         if (gameController.validateMove(gameBoard.board, index)) {
           playerMoveCallback(index);
@@ -58,52 +57,66 @@ const DisplayController = (function () {
     });
   };
 
-  const resetBoard = (resetCallback) => {
+  resetBoard = (resetCallback) => {
     const resetBtn = document.querySelector(".reset-btn");
 
     resetBtn.addEventListener("click", () => {
-      cells.forEach((cell) => {
+      this.cells.forEach((cell) => {
         cell.textContent = "";
       });
       resetCallback();
     });
   };
+}
 
-  return { renderBoard, setupBoardListeners, resetBoard };
-})();
+class PlayGame {
+  constructor() {
+    console.log("playgame init");
+    this.statusText = document.querySelector(".status-text");
+    this.gameBoard = new GameBoard();
+    this.gameController = new GameController();
+    this.displayController = new DisplayController();
 
-const PlayGame = (function () {
-  const statusText = document.querySelector(".status-text");
-  const gameBoard = GameBoard();
-  const gameController = GameController();
-  const displayController = DisplayController;
+    this.playerOne = new Player("p1", "X");
+    this.playerTwo = new Player("p2", "O");
+    this.currentPlayer = this.playerOne;
 
-  const playerOne = Player("p1", "X");
-  const playerTwo = Player("p2", "O");
-  let currentPlayer = playerOne;
+    this.displayController.setupBoardListeners(
+      this.gameBoard,
+      this.gameController,
+      (index) => this.playerMove(index)
+    );
+    this.displayController.resetBoard(() => this.resetGame());
+  }
 
-  const switchPlayer = () => {
-    currentPlayer = currentPlayer === playerOne ? playerTwo : playerOne;
-    statusText.textContent = `${currentPlayer.symbol}'s turn`;
-  };
+  switchPlayer() {
+    this.currentPlayer =
+      this.currentPlayer === this.playerOne ? this.playerTwo : this.playerOne;
+    this.statusText.textContent = `${this.currentPlayer.symbol}'s turn`;
+  }
 
-  const playerMove = (index) => {
-    gameController.makeMove(gameBoard.board, index, currentPlayer);
-    displayController.renderBoard(gameBoard.board);
-    if (gameController.checkWin(gameBoard.board, currentPlayer)) {
-      resetGame();
+  playerMove(index) {
+    this.gameController.makeMove(
+      this.gameBoard.board,
+      index,
+      this.currentPlayer
+    );
+    this.displayController.renderBoard(this.gameBoard.board);
+    if (
+      this.gameController.checkWin(this.gameBoard.board, this.currentPlayer)
+    ) {
+      this.resetGame();
     } else {
-      switchPlayer();
+      this.switchPlayer();
     }
-  };
+  }
 
-  const resetGame = () => {
-    gameBoard.board.fill("");
-    statusText.textContent = "X's turn";
-    displayController.renderBoard(gameBoard.board);
-    currentPlayer = playerOne;
-  };
+  resetGame() {
+    this.gameBoard.board.fill("");
+    this.statusText.textContent = "X's turn";
+    this.displayController.renderBoard(this.gameBoard.board);
+    this.currentPlayer = this.playerOne;
+  }
+}
 
-  displayController.setupBoardListeners(gameBoard, gameController, playerMove);
-  displayController.resetBoard(resetGame);
-})();
+new PlayGame();
